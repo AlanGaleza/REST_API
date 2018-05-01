@@ -1,6 +1,6 @@
 package com.crud.tasks.trello.facade;
 
-import com.crud.tasks.TrelloValidator;
+import com.crud.tasks.validator.TrelloValidator;
 import com.crud.tasks.domain.*;
 import com.crud.tasks.mapper.TrelloMapper;
 import com.crud.tasks.service.TrelloService;
