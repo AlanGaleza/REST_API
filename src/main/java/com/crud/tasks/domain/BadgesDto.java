@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class BadgesDto {
 
-    @JsonProperty("votes")
+    //@JsonProperty("votes")
     private int votes;
 
     /*@JsonProperty("attachmentsByType")

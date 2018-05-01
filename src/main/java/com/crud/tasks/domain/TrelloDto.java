@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class TrelloDto {
 
-    @JsonProperty("board")
+    //@JsonProperty("board")
     private int board;
 
-    @JsonProperty("card")
+    //@JsonProperty("card")
     private int card;
 }

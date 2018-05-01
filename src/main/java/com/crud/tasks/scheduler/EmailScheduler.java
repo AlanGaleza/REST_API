@@ -26,13 +26,11 @@ public class EmailScheduler {
     //@Scheduled(fixedDelay = 10000)// - send email every 10 sec - test
     public void sendInformationEmail() {
         long size = taskRepository.count();
-        simpleEmailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT, "Currently in database you got: " + size + taskOrTasks()));
+        simpleEmailService.send(new Mail(adminConfig.getAdminMail(), SUBJECT, String.format("Currently in database you got: %s (%s)", size, taskOrTasks())));
     }
 
     private String taskOrTasks() {
         return (taskRepository.count() > 1) ? " tasks" : " task";
     }
-
-
 
 }
