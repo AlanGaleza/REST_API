@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 
 @Component
 public class AdditionalInformation implements InfoContributor {
-    private static Map<String, String> companyData;
+    private static final Map<String, String> companyData;
     static {
         companyData = new HashMap<>();
         companyData.put("phone", "+48 505344961");
@@ -21,7 +21,6 @@ public class AdditionalInformation implements InfoContributor {
     }
     @Override
     public void contribute(Info.Builder builder) {
-        //COMPANY INFO
         builder.withDetail("company", companyData);
     }
 

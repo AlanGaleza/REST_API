@@ -1,6 +1,8 @@
 package com.crud.tasks.service;
 
+import com.crud.tasks.domain.Task;
 import com.crud.tasks.info.AdditionalInformation;
+import com.crud.tasks.repository.TaskRepository;
 import com.crud.tasks.trello.config.AdminConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,6 +12,7 @@ import org.thymeleaf.context.Context;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class MailCreatorService {
@@ -22,6 +25,9 @@ public class MailCreatorService {
 
     @Autowired
     AdditionalInformation additionalInformation;
+
+    @Autowired
+    DbService dbService;
 
     public String buildTrelloCardEmail(String message) {
         List<String> functionality = new ArrayList<>();
@@ -41,5 +47,24 @@ public class MailCreatorService {
         context.setVariable("admin_config", adminConfig);
         context.setVariable("application_functionality", functionality);
         return templateEngine.process("mail/created-trello-card-mail", context);
+    }
+
+    public String onceADayReportMailCreator(String message) {
+        List<String> functionality = dbService.getAllTasks().stream()
+                .map(Task::getTitle)
+                .collect(Collectors.toList());
+
+        Context context = new Context();
+        context.setVariable("message", message);
+        context.setVariable("tasks_url", "http://localhost:8888/tasks_frontend/");
+        context.setVariable("button", "Visit website");
+        context.setVariable("admin_name", adminConfig.getAdminName());
+        context.setVariable("goodbye", "Good Day");
+        context.setVariable("company_info", additionalInformation.companyInfo());
+        context.setVariable("show_button", true);
+        context.setVariable("is_friend", false);
+        context.setVariable("admin_config", adminConfig);
+        context.setVariable("application_functionality", functionality);
+        return templateEngine.process("mail/once-a-day-mail", context);
     }
 }
