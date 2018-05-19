@@ -22,8 +22,8 @@ public class EmailScheduler {
     @Autowired
     private AdminConfig adminConfig;
 
-    //@Scheduled(cron = "0 0 10 * * *")
-    @Scheduled(fixedDelay = 10000)// - send email every 10 sec - test
+    @Scheduled(cron = "0 0 10 * * *")
+    //@Scheduled(fixedDelay = 10000)// - send email every 10 sec - test
     public void sendInformationEmail() {
         long size = taskRepository.count();
         simpleEmailService.sendOnceADayReport(new Mail(adminConfig.getAdminMail(), SUBJECT, String.format("Currently in database you got: %s (%s)", size, taskOrTasks())));
